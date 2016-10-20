@@ -4,25 +4,37 @@
 #include <stdarg.h>
 
 
-typedef int T;                  /* type of item to be stored */
+typedef int T;
 #define compLT(a,b) (a < b)
 #define compEQ(a,b) (a == b)
 
-/* Red-Black tree description */
 typedef enum { BLACK, RED } nodeColor;
 
 typedef struct Node_ {
-    struct Node_ *left;         /* left child */
-    struct Node_ *right;        /* right child */
-    struct Node_ *parent;       /* parent */
-    nodeColor color;            /* node color (BLACK, RED) */
-    T data;                     /* data stored in node */
+    struct Node_ *left;
+    struct Node_ *right;
+    struct Node_ *parent;
+    nodeColor color;
+    T data;
 } Node;
 
-#define NIL &sentinel           /* all leafs are sentinels */
+#define NIL &sentinel
 Node sentinel = { NIL, NIL, 0, BLACK, 0};
 
-Node *root = NIL;               /* root of Red-Black tree */
+Node *root = NIL;
+
+void rotateLeft(Node *x);
+void rotateRight(Node *x);
+void insertFixup(Node *x);
+Node *insertNode(T data);
+void deleteFixup(Node *x);
+void deleteNode(Node *z);
+Node *findNode(T data);
+void inOrder(Node* tree);
+void preOrder(Node* tree);
+void postOrder(Node* tree);
+void show(Node* tree, int level);
+void deleteTree(Node* tree);
 
 void rotateLeft(Node *x) {
 
@@ -412,8 +424,7 @@ int main() {
                 show(root, -1);
             }
             else if (number == 4){
-                //inOrder(root);
-                deleteTree(root);
+                inOrder(root);
             }
             else if (number == 5){
                 preOrder(root);
